@@ -164,31 +164,31 @@ run-android: | check-device-android pre-run prepare-android-build ## Runs the ap
 build: | stop pre-build check-style i18n-extract-ci ## Builds the app for Android & iOS
 	$(call start_packager)
 	@echo "Building App"
-	@cd fastlane && BABEL_ENV=production NODE_ENV=production bundle exec fastlane build
+	@cd fastlane && bundle install && BABEL_ENV=production NODE_ENV=production bundle exec fastlane build
 	$(call stop_packager)
 
 
 build-ios: | stop pre-build check-style i18n-extract-ci ## Builds the iOS app
 	$(call start_packager)
 	@echo "Building iOS app"
-	@cd fastlane && BABEL_ENV=production NODE_ENV=production bundle exec fastlane ios build
+	@cd fastlane && bundle install && source ~/.zshrc && BABEL_ENV=production NODE_ENV=production bundle exec fastlane ios build
 	$(call stop_packager)
 
 build-android: | stop pre-build check-style i18n-extract-ci prepare-android-build ## Build the Android app
 	$(call start_packager)
 	@echo "Building Android app"
-	@cd fastlane && BABEL_ENV=production NODE_ENV=production bundle exec fastlane android build
+	@cd fastlane && bundle install && BABEL_ENV=production NODE_ENV=production bundle exec fastlane android build
 	$(call stop_packager)
 
 unsigned-ios: stop pre-build check-style ## Build an unsigned version of the iOS app
 	$(call start_packager)
-	@cd fastlane && NODE_ENV=production bundle exec fastlane ios unsigned
+	@cd fastlane && bundle install && NODE_ENV=production bundle exec fastlane ios unsigned
 	$(call stop_packager)
 
 ios-sim-x86_64: stop pre-build check-style ## Build an unsigned x86_64 version of the iOS app for iPhone simulator
 	$(call start_packager)
 	@echo "Building unsigned x86_64 iOS app for iPhone simulator"
-	@cd fastlane && NODE_ENV=production bundle exec fastlane ios unsigned
+	@cd fastlane && bundle install && NODE_ENV=production bundle exec fastlane ios unsigned
 	@mkdir -p build-ios
 	@cd ios/ && xcodebuild -workspace Mattermost.xcworkspace/ -scheme Mattermost -arch x86_64 -sdk iphonesimulator -configuration Release -parallelizeTargets -resultBundlePath ../build-ios/result -derivedDataPath ../build-ios/ ENABLE_BITCODE=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ENABLE_BITCODE=NO
 	@cd build-ios/Build/Products/Release-iphonesimulator/ && zip -r Mattermost-simulator-x86_64.app.zip Mattermost.app/
@@ -198,7 +198,7 @@ ios-sim-x86_64: stop pre-build check-style ## Build an unsigned x86_64 version o
 	$(call stop_packager)
 
 unsigned-android: stop pre-build check-style prepare-android-build ## Build an unsigned version of the Android app
-	@cd fastlane && NODE_ENV=production bundle exec fastlane android unsigned
+	@cd fastlane && bundle install && NODE_ENV=production bundle exec fastlane android unsigned
 
 test: | pre-run check-style ## Runs tests
 	@npm test

@@ -196,7 +196,7 @@
   "mobile.components.error_list.dismiss_all": "Dismiss All",
   "mobile.components.select_server_view.connect": "Connect",
   "mobile.components.select_server_view.connecting": "Verbindingen",
-  "mobile.components.select_server_view.enterServerUrl": "Enter Server URL",
+  "mobile.components.select_server_view.enterServerUrl": "サーバのURLを入力してください",
   "mobile.components.select_server_view.proceed": "Proceed",
   "mobile.components.select_server_view.siteUrlPlaceholder": "https://mattermost.example.com",
   "mobile.create_channel": "Create",
