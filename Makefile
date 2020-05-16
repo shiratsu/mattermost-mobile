@@ -164,20 +164,21 @@ run-android: | check-device-android pre-run prepare-android-build ## Runs the ap
 build: | stop pre-build check-style i18n-extract-ci ## Builds the app for Android & iOS
 	$(call start_packager)
 	@echo "Building App"
-	@cd fastlane && bundle install && BABEL_ENV=production NODE_ENV=production bundle exec fastlane build
+	@cd fastlane && bundle install && source ~/.zshrc && BABEL_ENV=production NODE_ENV=production bundle exec fastlane build
 	$(call stop_packager)
 
 
 build-ios: | stop pre-build check-style i18n-extract-ci ## Builds the iOS app
 	$(call start_packager)
 	@echo "Building iOS app"
+	@echo ${PATH}
 	@cd fastlane && bundle install && source ~/.zshrc && BABEL_ENV=production NODE_ENV=production bundle exec fastlane ios build
 	$(call stop_packager)
 
 build-android: | stop pre-build check-style i18n-extract-ci prepare-android-build ## Build the Android app
 	$(call start_packager)
 	@echo "Building Android app"
-	@cd fastlane && bundle install && BABEL_ENV=production NODE_ENV=production bundle exec fastlane android build
+	@cd fastlane && bundle install && source ~/.zshrc && BABEL_ENV=production NODE_ENV=production bundle exec fastlane android build
 	$(call stop_packager)
 
 unsigned-ios: stop pre-build check-style ## Build an unsigned version of the iOS app
